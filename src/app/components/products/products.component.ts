@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Category } from '../../interfaces/Category';
 import { Product } from '../../interfaces/Product';
 import { CategoryService } from '../../services/category.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -15,18 +16,15 @@ export class ProductsComponent {
   products: Product[] = [];
   product: Product = {} as Product;
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private productService: ProductService) { }
   
   ngOnInit(): void{
     this.categories = this.categoryService.getCategories();
+    this.products = this.productService.getProducts();
   }
 
   save() {
-    this.product.id = this.products.length + 1;
-    this.products.push(this.product);
-
+    this.productService.saveProduct(this.product);
     this.product = {} as Product;
-
-    console.log(this.products);
   }
 }
