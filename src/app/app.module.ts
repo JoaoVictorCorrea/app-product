@@ -9,6 +9,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductsComponent } from './components/products/products.component';
 import { FormsModule } from '@angular/forms';
+import { LOCALE_ID } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { register } from 'module';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -25,6 +31,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: 'pt'},
     provideClientHydration()
   ],
   bootstrap: [AppComponent]
