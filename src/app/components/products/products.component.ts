@@ -27,4 +27,16 @@ export class ProductsComponent {
       name: "Premium"
     }
   ];
+
+  products: Product[] = [];
+  product: Product = {} as Product;
+
+  save() {
+    this.product.id = this.products.length + 1;
+    this.products.push(this.product);
+
+    this.product = {} as Product;
+
+    console.log(this.products);
+  }
 }
