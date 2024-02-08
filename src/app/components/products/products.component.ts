@@ -19,12 +19,28 @@ export class ProductsComponent {
   constructor(private categoryService: CategoryService, private productService: ProductService) { }
   
   ngOnInit(): void{
-    this.categories = this.categoryService.getCategories();
-    this.products = this.productService.getProducts();
+    this.loadProducts();
+    this.loadCategories();
+  }
+
+  loadProducts() {
+    this.productService.getProducts().subscribe({
+      next: data => {this.products = data}
+    });
+  }
+
+  loadCategories() {
+    this.categoryService.getCategories().subscribe({
+      next: data => {this.categories = data}
+    });
   }
 
   save() {
-    this.productService.saveProduct(this.product);
-    this.product = {} as Product;
+    this.productService.saveProduct(this.product).subscribe({
+      next: data => {
+        this.products.push(data);
+        this.product = {} as Product;
+      }
+    })
   }
 }

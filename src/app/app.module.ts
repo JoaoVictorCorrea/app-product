@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,6 @@ import { ProductsComponent } from './components/products/products.component';
 import { FormsModule } from '@angular/forms';
 import { LOCALE_ID } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
-import { register } from 'module';
 import { registerLocaleData } from '@angular/common';
 
 registerLocaleData(localePt, 'pt');
@@ -28,7 +28,8 @@ registerLocaleData(localePt, 'pt');
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt'},
