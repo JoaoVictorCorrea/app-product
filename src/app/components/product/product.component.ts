@@ -21,4 +21,8 @@ export class ProductComponent {
   save() {
     this.saveEmmitter.emit();
   }
+
+  cancel() {
+    this.product = {} as Product;
+  }
 }
