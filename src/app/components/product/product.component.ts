@@ -19,10 +19,10 @@ export class ProductComponent {
   saveEmmitter = new EventEmitter();
 
   save() {
-    this.saveEmmitter.emit();
+    this.saveEmmitter.emit(true);
   }
 
   cancel() {
-    this.product = {} as Product;
+    this.saveEmmitter.emit(false);
   }
 }

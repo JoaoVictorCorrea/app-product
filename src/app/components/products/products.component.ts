@@ -16,6 +16,8 @@ export class ProductsComponent {
   products: Product[] = [];
   product: Product = {} as Product;
 
+  showForm: boolean = false;
+
   constructor(private categoryService: CategoryService, private productService: ProductService) { }
   
   ngOnInit(): void{
@@ -35,12 +37,21 @@ export class ProductsComponent {
     });
   }
 
-  save() {
-    this.productService.saveProduct(this.product).subscribe({
-      next: data => {
-        this.products.push(data);
-        this.product = {} as Product;
-      }
-    })
+  saveProduct(save: boolean) {
+
+    if (save) {
+      this.productService.saveProduct(this.product).subscribe({
+        next: data => {
+          this.products.push(data);
+        }
+      })
+    }
+
+    this.product = {} as Product;
+    this.showForm = false;
+  }
+
+  create() {
+    this.showForm = true;
   }
 }
