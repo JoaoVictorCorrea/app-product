@@ -25,4 +25,8 @@ export class ProductComponent {
   cancel() {
     this.saveEmmitter.emit(false);
   }
+
+  selectedCategory(category1: Category, category2: Category) {
+    return category1 && category2 ? category1.id === category2.id : false;
+  }
 }
