@@ -23,7 +23,7 @@ export class ProductComponent implements OnChanges {
 
   constructor(private formBuilder: FormBuilder) {
     this.formGroupProduct = this.formBuilder.group({
-      id: [''],
+      id: {value:null, disabled:true},
       name: [''],
       description: [''],
       category: [''],
@@ -34,7 +34,9 @@ export class ProductComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    this.formGroupProduct.setValue(this.product);
+    if (this.product.id) {
+      this.formGroupProduct.setValue(this.product);
+    }
   }
 
   save() {
