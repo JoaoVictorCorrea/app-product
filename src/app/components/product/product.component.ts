@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Category } from '../../interfaces/Category';
 import { Product } from '../../interfaces/Product';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -24,10 +24,10 @@ export class ProductComponent implements OnChanges {
   constructor(private formBuilder: FormBuilder) {
     this.formGroupProduct = this.formBuilder.group({
       id: {value:null, disabled:true},
-      name: [''],
-      description: [''],
-      category: [''],
-      price: [''],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      price: ['', [Validators.required]],
       newProduct: [''],
       promotion: ['']
     })
@@ -40,8 +40,10 @@ export class ProductComponent implements OnChanges {
   }
 
   save() {
-    Object.assign(this.product, this.formGroupProduct.value);
-    this.saveEmmitter.emit(true);
+    if (this.formGroupProduct.valid) {
+      Object.assign(this.product, this.formGroupProduct.value);
+      this.saveEmmitter.emit(true);
+    }
   }
 
   cancel() {
@@ -51,4 +53,12 @@ export class ProductComponent implements OnChanges {
   selectedCategory(category1: Category, category2: Category) {
     return category1 && category2 ? category1.id === category2.id : false;
   }
+
+  get pfgName() { return this.formGroupProduct.get("name") }
+  
+  get pfgDescription() { return this.formGroupProduct.get("description") }
+  
+  get pfgPrice() { return this.formGroupProduct.get("price") }
+  
+  get pfgCategory() { return this.formGroupProduct.get("category") }
 }
